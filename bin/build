@@ -1,0 +1,3 @@
+#!/bin/sh -e
+
+npx webpack --config ./webpack.config.js --display errors-only

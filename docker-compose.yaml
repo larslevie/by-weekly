@@ -1,0 +1,17 @@
+version: "3.7"
+
+services:
+  oscar:
+    build: .
+    ports:
+      - 8001:8001
+    environment:
+      WATCH: "1"
+    volumes:
+      - ../oscar/src:/opt/oscar/src
+      - ../oscar/dist:/opt/oscar/dist
+      - ../oscar/bin:/opt/oscar/bin
+      - ../oscar/.babelrc:/opt/oscar/.babelrc
+      - ../oscar/.eslintrc:/opt/oscar/.eslintrc
+      - ../oscar/package.json:/opt/oscar/package.json
+      - ../oscar/package-lock.json:/opt/oscar/package-lock.json
