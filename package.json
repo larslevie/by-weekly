@@ -8,9 +8,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "github.com/levieindustries/oscar"
+    "url": "github.com/larslevie/oscar"
   },
-  "author": "Lars Levie <lars@levieindustries.com>",
+  "author": "Lars Levie <larslevie@gmail.com>",
   "license": "UNLICENSED",
   "dependencies": {
     "@emotion/core": "^10.0.10",

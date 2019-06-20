@@ -1,5 +1,5 @@
 FROM node:dubnium-stretch-slim
-LABEL author="Lars Levie <lars@levieindustries.com>"
+LABEL author="Lars Levie <larslevie@gmail.com>"
 
 WORKDIR /opt/oscar
 
