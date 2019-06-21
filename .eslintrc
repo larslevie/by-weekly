@@ -1,5 +1,6 @@
 {
   "extends": "airbnb",
+  "plugins": ["react-hooks"],
   "env": {
     "browser": true
   },
@@ -11,6 +12,8 @@
       {
         "code": 80
       }
-    ]
+    ],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   }
 }
