@@ -16,12 +16,7 @@ const styles = css({
 const Cell = ({ title }) => {
   const [tasks, setTasks] = useState({});
 
-  const handleAddTask = (task) => {
-    const newTasks = _assign({}, tasks, { [task.id]: task });
-    setTasks(newTasks);
-  };
-
-  const handleUpdateTask = (task) => {
+  const saveTask = (task) => {
     const newTasks = _assign({}, tasks, { [task.id]: task });
     setTasks(newTasks);
   };
@@ -30,13 +25,16 @@ const Cell = ({ title }) => {
     <div css={styles}>
       <h2>{title}</h2>
 
-      <TaskList tasks={tasks} handleUpdateTask={handleUpdateTask} />
+      <TaskList tasks={tasks} saveTask={saveTask} />
       <button
         type="button"
         onClick={() => {
-          handleAddTask({
+          saveTask({
             id: `cid${Math.floor(Math.random() * 10)}`,
             name: 'Foo',
+            isComplete: false,
+            isDeferred: false,
+            isCanceled: false,
           });
         }}
       >
