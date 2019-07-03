@@ -1,7 +1,7 @@
 import { css } from '@emotion/core';
-import _assign from 'lodash/assign';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
+import { v4 as uuid } from 'uuid';
 import TaskList from '../../task-list';
 
 const styles = css({
@@ -13,29 +13,61 @@ const styles = css({
   maxWidth: 'calc(50%)',
 });
 
-const Cell = ({ title }) => {
-  const [tasks, setTasks] = useState({});
+const crupdateTask = (state, task) => ({ ...state, [task.id]: { ...task } });
 
-  const saveTask = (task) => {
-    const newTasks = _assign({}, tasks, { [task.id]: task });
-    setTasks(newTasks);
-  };
+const reducer = (state, action) => {
+  const { type, ...task } = action;
+
+  switch (type) {
+    case 'create':
+      return crupdateTask(state, { ...task, id: uuid() });
+    case 'update':
+      return crupdateTask(state, { ...task });
+    case 'complete':
+      return crupdateTask(state, {
+        ...task,
+        isCanceled: false,
+        isComplete: true,
+        isDeferred: false,
+      });
+    case 'defer':
+      return crupdateTask(state, {
+        ...task,
+        isCanceled: false,
+        isComplete: false,
+        isDeferred: true,
+      });
+    case 'cancel':
+      return crupdateTask(state, {
+        ...task,
+        isCanceled: true,
+        isComplete: false,
+        isDeferred: false,
+      });
+    default:
+      console.error('Unknown action: %s', action);
+      return state;
+  }
+};
+
+const usePersistence = (initialValue) => {
+  const [state, dispatch] = useReducer(reducer, initialValue);
+  return [state, dispatch];
+};
+
+const Cell = ({ title }) => {
+  const [tasks, dispatch] = usePersistence({});
 
   return (
     <div css={styles}>
       <h2>{title}</h2>
 
-      <TaskList tasks={tasks} saveTask={saveTask} />
+      <TaskList tasks={tasks} dispatch={dispatch} />
+
       <button
         type="button"
         onClick={() => {
-          saveTask({
-            id: `cid${Math.floor(Math.random() * 10)}`,
-            name: 'Foo',
-            isComplete: false,
-            isDeferred: false,
-            isCanceled: false,
-          });
+          dispatch({ type: 'create', label: '' });
         }}
       >
         Add Task
