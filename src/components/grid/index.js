@@ -10,7 +10,7 @@ const gridClass = css`
 `;
 
 const renderGrid = () =>
-  ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Next'].map(day => (
+  ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'next'].map(day => (
     <Cell key={day} title={day} />
   ));
 
