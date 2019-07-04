@@ -2,13 +2,14 @@ import _map from 'lodash/map';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Task from './task';
+import styles from './styles';
 
 const TaskList = ({ tasks, dispatch }) => (
-  <div>
+  <ul css={styles.taskList}>
     {_map(tasks, task => (
       <Task key={task.id} task={task} dispatch={dispatch} />
     ))}
-  </div>
+  </ul>
 );
 
 TaskList.propTypes = {

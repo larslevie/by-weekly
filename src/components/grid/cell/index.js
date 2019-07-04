@@ -10,6 +10,12 @@ import styles from './styles';
 
 const crupdateTask = (state, task) => ({ ...state, [task.id]: { ...task } });
 
+const deleteTask = (state, id) => {
+  const newState = { ...state };
+  delete newState[id];
+  return newState;
+};
+
 const anyEmpty = (tasks) => {
   const labels = _map(tasks, (_v, k) => tasks[k].label.trim());
   const emptyLabels = labels.filter(v => v === '');
@@ -47,6 +53,8 @@ const reducer = (state, action) => {
         isComplete: false,
         isDeferred: false,
       });
+    case 'delete':
+      return deleteTask(state, task.id);
     default:
       console.error('Unknown action: %s', action);
       return state;
@@ -74,7 +82,13 @@ const Cell = ({ title }) => {
       <button
         type="button"
         onClick={() => {
-          dispatch({ type: 'create', label: '' });
+          dispatch({
+            type: 'create',
+            label: '',
+            isComplete: false,
+            isCanceled: false,
+            isDeferred: false,
+          });
         }}
       >
         <FontAwesomeIcon icon={faPlus} />
