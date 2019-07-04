@@ -32,29 +32,31 @@ const renderTask = (dispatch, task) => (
       }}
     />
 
-    <button
-      css={styles.taskButton}
-      onClick={() => dispatch({ ...task, type: 'delete' })}
-      type="button"
-    >
-      <FontAwesomeIcon icon={faTimesCircle} />
-    </button>
+    <div css={styles.actions}>
+      <button
+        css={styles.taskButton}
+        onClick={() => dispatch({ ...task, type: 'delete' })}
+        type="button"
+      >
+        <FontAwesomeIcon icon={faTimesCircle} />
+      </button>
 
-    <button
-      css={styles.taskButton}
-      onClick={() => dispatch({ ...task, type: 'cancel' })}
-      type="button"
-    >
-      <FontAwesomeIcon icon={faMinusSquare} />
-    </button>
+      <button
+        css={styles.taskButton}
+        onClick={() => dispatch({ ...task, type: 'cancel' })}
+        type="button"
+      >
+        <FontAwesomeIcon icon={faMinusSquare} />
+      </button>
 
-    <button
-      css={styles.taskButton}
-      onClick={() => dispatch({ ...task, type: 'defer' })}
-      type="button"
-    >
-      <FontAwesomeIcon icon={faExternalLinkSquareAlt} />
-    </button>
+      <button
+        css={styles.taskButton}
+        onClick={() => dispatch({ ...task, type: 'defer' })}
+        type="button"
+      >
+        <FontAwesomeIcon icon={faExternalLinkSquareAlt} />
+      </button>
+    </div>
   </li>
 );
 
