@@ -15,3 +15,4 @@ services:
       - ../oscar/.eslintrc:/opt/oscar/.eslintrc
       - ../oscar/package.json:/opt/oscar/package.json
       - ../oscar/package-lock.json:/opt/oscar/package-lock.json
+      - ../oscar/webpack.config.js:/opt/oscar/webpack.config.js

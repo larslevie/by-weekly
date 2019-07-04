@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import _map from 'lodash/map';
 import PropTypes from 'prop-types';
 import React, { useEffect, useReducer } from 'react';
 import { v4 as uuid } from 'uuid';
+import { cx } from '@emotion/core';
 import useLocalStorage from '../../../hooks/use-local-storage';
 import TaskList from '../../task-list';
 import styles from './styles';
@@ -67,11 +69,11 @@ const usePersistence = (key, initialValue) => {
   return [state, dispatch];
 };
 
-const Cell = ({ title }) => {
+const Cell = ({ title, column, row }) => {
   const [tasks, dispatch] = usePersistence(title, {});
 
   return (
-    <div css={styles.cell}>
+    <div css={(styles[`column${column}Cell`], styles[`row${row}Cell`])}>
       <h2 css={styles.title}>{title}</h2>
 
       <TaskList tasks={tasks} dispatch={dispatch} />
@@ -95,6 +97,8 @@ const Cell = ({ title }) => {
 
 Cell.propTypes = {
   title: PropTypes.string.isRequired,
+  column: PropTypes.number.isRequired,
+  row: PropTypes.number.isRequired,
 };
 
 export default Cell;
