@@ -33,26 +33,23 @@ const reducer = (state, action) => {
     case 'update':
       return crupdateTask(state, { ...task });
     case 'complete':
-      return crupdateTask(state, {
-        ...task,
-        isCanceled: false,
-        isComplete: true,
-        isDeferred: false,
-      });
+      if (task.status === 'completed') {
+        return crupdateTask(state, { ...task, status: 'uncompleted' });
+      }
+
+      return crupdateTask(state, { ...task, status: 'completed' });
     case 'defer':
-      return crupdateTask(state, {
-        ...task,
-        isCanceled: false,
-        isComplete: false,
-        isDeferred: true,
-      });
+      if (task.status !== 'defered') {
+        return crupdateTask(state, { ...task, status: 'defered' });
+      }
+
+      return crupdateTask(state, { ...task, status: 'uncompleted' });
     case 'cancel':
-      return crupdateTask(state, {
-        ...task,
-        isCanceled: true,
-        isComplete: false,
-        isDeferred: false,
-      });
+      if (task.status !== 'canceled') {
+        return crupdateTask(state, { ...task, status: 'canceled' });
+      }
+
+      return crupdateTask(state, { ...task, status: 'uncompleted' });
     case 'delete':
       return deleteTask(state, task.id);
     default:
@@ -85,9 +82,7 @@ const Cell = ({ title }) => {
           dispatch({
             type: 'create',
             label: '',
-            isComplete: false,
-            isCanceled: false,
-            isDeferred: false,
+            status: 'incomplete',
           });
         }}
       >

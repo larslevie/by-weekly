@@ -14,7 +14,7 @@ const renderTask = (dispatch, task) => (
   <li>
     <input
       type="checkbox"
-      checked={task.isComplete}
+      checked={task.status === 'completed'}
       onChange={() => dispatch({ ...task, type: 'complete' })}
     />
     <input
