@@ -5,7 +5,6 @@ import Task from './task';
 
 const TaskList = ({ tasks, dispatch }) => (
   <div>
-    {console.log(tasks)}
     {_map(tasks, task => (
       <Task key={task.id} task={task} dispatch={dispatch} />
     ))}
