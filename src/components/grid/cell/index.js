@@ -1,7 +1,8 @@
 import { css } from '@emotion/core';
 import PropTypes from 'prop-types';
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { v4 as uuid } from 'uuid';
+import useLocalStorage from '../../../hooks/use-local-storage';
 import TaskList from '../../task-list';
 
 const styles = css({
@@ -50,13 +51,17 @@ const reducer = (state, action) => {
   }
 };
 
-const usePersistence = (initialValue) => {
-  const [state, dispatch] = useReducer(reducer, initialValue);
+const usePersistence = (key, initialValue) => {
+  const [storedValue, setStoredState] = useLocalStorage(key, initialValue);
+  const [state, dispatch] = useReducer(reducer, storedValue);
+
+  useEffect(() => setStoredState(state), [setStoredState, state]);
+
   return [state, dispatch];
 };
 
 const Cell = ({ title }) => {
-  const [tasks, dispatch] = usePersistence({});
+  const [tasks, dispatch] = usePersistence(title, {});
 
   return (
     <div css={styles}>
