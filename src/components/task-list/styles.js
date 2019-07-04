@@ -6,8 +6,8 @@ export default {
     paddingLeft: 0,
   }),
   taskLabel: css({
-    fontSize: '1em',
     border: 0,
+    fontSize: '1em',
     outline: 0,
   }),
   taskButton: css({
@@ -16,5 +16,18 @@ export default {
     ':hover': {
       cursor: 'pointer',
     },
+  }),
+  task: css({
+    '& + &': {
+      borderTop: 'solid 1px #f1f1f1',
+      marginTop: '10px',
+      paddingTop: '10px',
+    },
+  }),
+  taskCheckbox: css({
+    // height: '18px',
+    marginRight: '10px',
+    // width: '18px',
+    fontSize: '1em',
   }),
 };

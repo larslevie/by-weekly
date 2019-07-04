@@ -11,11 +11,12 @@ import styles from './styles';
 const TaskForm = ({ render }) => render();
 
 const renderTask = (dispatch, task) => (
-  <li>
+  <li css={styles.task}>
     <input
-      type="checkbox"
       checked={task.status === 'completed'}
+      css={styles.taskCheckbox}
       onChange={() => dispatch({ ...task, type: 'complete' })}
+      type="checkbox"
     />
     <input
       css={styles.taskLabel}
