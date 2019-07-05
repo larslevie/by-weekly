@@ -19,5 +19,6 @@
       },
       "dest": "/public/index.html"
     }
-  ]
+  ],
+  "alias": ["byweekly.dev"]
 }
