@@ -17,6 +17,16 @@ export default {
     gridRow: 3,
   }),
   title: css({
+    margin: 0,
     textTransform: 'capitalize',
+  }),
+  cell: css({
+    padding: '10px',
+  }),
+  addbutton: css({
+    border: 0,
+    cursor: 'pointer',
+    padding: 0,
+    outline: 'none',
   }),
 };

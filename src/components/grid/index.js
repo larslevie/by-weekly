@@ -5,7 +5,7 @@ import Cell from './cell';
 const gridClass = css`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  grid-template-rows: repeat(3, 33vh);
+  grid-template-rows: repeat(3, 31vh);
 `;
 
 const renderGrid = () =>

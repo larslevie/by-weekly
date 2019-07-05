@@ -2,6 +2,7 @@ import { css, Global } from '@emotion/core';
 import emotionNormalize from 'emotion-normalize';
 import React from 'react';
 import Grid from './grid';
+import NavBar from './navbar';
 
 const Root = () => (
   <div>
@@ -14,6 +15,7 @@ const Root = () => (
         }
       `}
     />
+    <NavBar />
     <Grid />
   </div>
 );

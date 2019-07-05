@@ -73,12 +73,19 @@ const Cell = ({ title, column, row }) => {
   const [tasks, dispatch] = usePersistence(title, {});
 
   return (
-    <div css={(styles[`column${column}Cell`], styles[`row${row}Cell`])}>
+    <div
+      css={[
+        styles.cell,
+        styles[`column${column}Cell`],
+        styles[`row${row}Cell`],
+      ]}
+    >
       <h2 css={styles.title}>{title}</h2>
 
       <TaskList tasks={tasks} dispatch={dispatch} />
 
       <button
+        css={styles.addbutton}
         type="button"
         onClick={() => {
           dispatch({
