@@ -9,12 +9,19 @@ const gridClass = css`
 `;
 
 const renderGrid = () =>
-  [['monday', 'tuesday', 'wednesday'], ['thursday', 'friday', 'next']].map(
-    (column, ci) =>
-      column.map((day, ri) => (
-        <Cell column={ci + 1} row={ri + 1} key={day} title={day} />
-      )),
-  );
+  [
+    [
+      { key: 1, title: 'monday' },
+      { key: 2, title: 'tuesday' },
+      { key: 3, title: 'wednesday' },
+    ],
+    [
+      { key: 4, title: 'thursday' },
+      { key: 5, title: 'friday' },
+      { key: 6, title: 'next' },
+    ],
+  ].map((column, ci) =>
+    column.map((day, ri) => <Cell column={ci + 1} row={ri + 1} {...day} />));
 
 const Grid = () => <div css={gridClass}>{renderGrid()}</div>;
 

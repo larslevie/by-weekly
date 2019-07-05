@@ -1,11 +1,10 @@
-/* eslint-disable no-unused-vars */
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import _map from 'lodash/map';
 import PropTypes from 'prop-types';
 import React, { useEffect, useReducer } from 'react';
 import { v4 as uuid } from 'uuid';
-import { cx } from '@emotion/core';
+import getISOWeek from 'date-fns/get_iso_week';
 import useLocalStorage from '../../../hooks/use-local-storage';
 import TaskList from '../../task-list';
 import styles from './styles';
@@ -70,7 +69,9 @@ const usePersistence = (key, initialValue) => {
 };
 
 const Cell = ({ title, column, row }) => {
-  const [tasks, dispatch] = usePersistence(title, {});
+  const isoWeek = getISOWeek(new Date());
+  const persistenceKey = `${isoWeek}:${title}`;
+  const [tasks, dispatch] = usePersistence(persistenceKey, {});
 
   return (
     <div
