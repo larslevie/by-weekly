@@ -1,18 +1,22 @@
 version: "3.7"
 
 services:
-  oscar:
+  by-weekly:
     build: .
+    command:
+      - "bin/run"
     ports:
       - 8001:8001
-    environment:
-      WATCH: "1"
+    # environment:
+    #   WATCH: "1"
+    #   ENVIRONMENT: "development"
     volumes:
-      - ../oscar/src:/opt/oscar/src
-      - ../oscar/dist:/opt/oscar/dist
-      - ../oscar/bin:/opt/oscar/bin
-      - ../oscar/.babelrc:/opt/oscar/.babelrc
-      - ../oscar/.eslintrc:/opt/oscar/.eslintrc
-      - ../oscar/package.json:/opt/oscar/package.json
-      - ../oscar/package-lock.json:/opt/oscar/package-lock.json
-      - ../oscar/webpack.config.js:/opt/oscar/webpack.config.js
+      - ../by-weekly/src:/opt/by-weekly/src
+      - ../by-weekly/dist:/opt/by-weekly/dist
+      - ../by-weekly/bin:/opt/by-weekly/bin
+      - ../by-weekly/.babelrc:/opt/by-weekly/.babelrc
+      - ../by-weekly/.eslintrc:/opt/by-weekly/.eslintrc
+      - ../by-weekly/package.json:/opt/by-weekly/package.json
+      - ../by-weekly/package-lock.json:/opt/by-weekly/package-lock.json
+      - ../by-weekly/webpack.config.common.js:/opt/by-weekly/webpack.config.common.js
+      - ../by-weekly/webpack.config.dev.js:/opt/by-weekly/webpack.config.dev.js

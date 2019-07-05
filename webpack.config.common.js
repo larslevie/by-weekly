@@ -1,21 +1,7 @@
 const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
-const webpack = require('webpack');
 
 module.exports = {
-  mode: 'development',
-  devtool: 'inline-source-map',
-  devServer: {
-    compress: true,
-    host: '0.0.0.0',
-    disableHostCheck: true,
-    port: 8001,
-    hot: true,
-    inline: true,
-    publicPath: '/',
-    contentBase: './public',
-    historyApiFallback: true,
-  },
   entry: './src/index.js',
   module: {
     rules: [
@@ -43,6 +29,5 @@ module.exports = {
         to: 'public',
       },
     ]),
-    new webpack.HotModuleReplacementPlugin(),
   ],
 };
