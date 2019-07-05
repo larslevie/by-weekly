@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "name": "by-weekly",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@now/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    { "src": "/index.js", "dest": "/index.js" },
+    {
+      "src": "/(.*)",
+      "headers": {
+        "cache-control": "s-maxage=0"
+      },
+      "dest": "/public/index.html"
+    }
+  ]
+}

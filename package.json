@@ -4,7 +4,8 @@
   "description": "Disposable weekly todo tracking.",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo 'There are no tests.' && exit 0"
+    "test": "echo 'There are no tests.' && exit 0",
+    "build": "bin/build"
   },
   "repository": {
     "type": "git",
