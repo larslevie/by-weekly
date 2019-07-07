@@ -40,8 +40,8 @@ const reducer = (state, action) => {
 
       return crupdateTask(state, { ...task, status: 'completed' });
     case 'defer':
-      if (task.status !== 'defered') {
-        return crupdateTask(state, { ...task, status: 'defered' });
+      if (task.status !== 'deferred') {
+        return crupdateTask(state, { ...task, status: 'deferred' });
       }
 
       return crupdateTask(state, { ...task, status: 'uncompleted' });

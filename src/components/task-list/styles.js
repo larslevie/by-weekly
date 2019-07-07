@@ -1,6 +1,7 @@
 import { css } from '@emotion/core';
 
 const taskButton = css({
+  background: 'transparent',
   border: 'none',
   outline: 'none',
   fontSize: '16px',
@@ -13,6 +14,19 @@ const actions = css({
   visibility: 'hidden',
   position: 'absolute',
   right: 0,
+});
+
+const canceled = css({
+  textDecoration: 'line-through',
+  color: '#bdbdbd',
+});
+
+const deferred = css({
+  backgroundColor: '#29b9f1',
+});
+
+const completed = css({
+  backgroundColor: '#dbe62f',
 });
 
 const rest = {
@@ -44,4 +58,11 @@ const rest = {
   }),
 };
 
-export default { ...rest, taskButton, actions };
+export default {
+  ...rest,
+  taskButton,
+  actions,
+  canceled,
+  deferred,
+  completed,
+};

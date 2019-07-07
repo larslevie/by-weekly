@@ -19,7 +19,12 @@ const renderTask = (dispatch, task) => (
       type="checkbox"
     />
     <input
-      css={styles.taskLabel}
+      css={[
+        styles.taskLabel,
+        task.status === 'canceled' && styles.canceled,
+        task.status === 'deferred' && styles.deferred,
+        task.status === 'completed' && styles.completed,
+      ]}
       type="text"
       name="label"
       value={task.label}
