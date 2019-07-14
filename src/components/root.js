@@ -12,6 +12,7 @@ const Root = () => (
         body {
           font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI',
             Roboto, 'Helvetica Neue', Arial, sans-serif;
+          padding: 0 16px;
         }
       `}
     />

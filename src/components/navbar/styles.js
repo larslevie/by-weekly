@@ -1,23 +1,44 @@
 import { css } from '@emotion/core';
 
 const toolbar = css({
-  background: '#33e',
   marginBottom: '16px',
+  display: 'flex',
+  borderTop: '8px solid #33e',
 });
 
 const logo = css({
-  fontWeight: 'bold',
+  background: '#33e',
+  color: '#fff',
   textDecoration: 'none',
 });
 
 const toolbarItem = css({
-  color: '#fff',
-  padding: '16px',
+  color: '#111111',
   display: 'inline-block',
+  fontSize: '20px',
+  fontWeight: 'bold',
+  padding: '12px 16px 16px',
 });
+
+const toolbarStart = {
+  alignSelf: 'start',
+  flex: 1,
+};
+
+const toolbarEnd = {
+  alignSelf: 'end',
+};
+
+const weekNumber = {
+  fontWeight: 'normal',
+  color: '#9F9F9F',
+};
 
 export default {
   logo,
   toolbar,
+  toolbarEnd,
   toolbarItem,
+  toolbarStart,
+  weekNumber,
 };
