@@ -1,16 +1,17 @@
-import endOfISOWeek from 'date-fns/end_of_iso_week';
+import endOfWeek from 'date-fns/end_of_week';
 import formatDate from 'date-fns/format';
 import getISOWeek from 'date-fns/get_iso_week';
-import startOfISOWeek from 'date-fns/start_of_iso_week';
+import startOfWeek from 'date-fns/start_of_week';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Toolbar, ToolbarItem, useToolbarState } from 'reakit';
 import styles from './styles';
 
-const NavBar = () => {
+const NavBar = ({ date }) => {
   const toolbar = useToolbarState();
-  const isoWeek = getISOWeek(new Date());
-  const startOfWeek = startOfISOWeek(new Date());
-  const endOfWeek = endOfISOWeek(new Date());
+  const isoWeek = getISOWeek(date);
+  const firstDay = startOfWeek(date, { weekStartsOn: 1 });
+  const lastDay = endOfWeek(date, { weekStartsOn: 1 });
 
   return (
     <Toolbar {...toolbar} css={styles.toolbar}>
@@ -18,11 +19,11 @@ const NavBar = () => {
         <span css={[styles.toolbarItem]}>
           The Week of
           {' '}
-          {formatDate(startOfWeek, 'MMMM DD')}
+          {formatDate(firstDay, 'MMMM DD')}
           {' '}
 &ndash;
           {' '}
-          {formatDate(endOfWeek, 'MMMM DD')}
+          {formatDate(lastDay, 'MMMM DD')}
           <span css={styles.weekNumber}>
             {' / '}
             {isoWeek}
@@ -42,6 +43,10 @@ const NavBar = () => {
       </div>
     </Toolbar>
   );
+};
+
+NavBar.propTypes = {
+  date: PropTypes.string.isRequired,
 };
 
 export default NavBar;
