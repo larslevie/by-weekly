@@ -1,45 +1,112 @@
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import PropTypes, { any } from 'prop-types';
-import React from 'react';
-import TaskList from '../task-list';
+import _map from 'lodash/map';
+import PropTypes from 'prop-types';
+import React, { useEffect, useReducer } from 'react';
+import { v4 as uuid } from 'uuid';
+import getISOWeek from 'date-fns/get_iso_week';
+import useLocalStorage from '../../../hooks/use-local-storage';
+import TaskList from '../../task-list';
 import styles from './styles';
 
-const GridCell = ({
-  column, dispatch, listId, list, row, title,
-}) => (
-  <div
-    css={[styles.cell, styles[`column${column}Cell`], styles[`row${row}Cell`]]}
-  >
-    <h2 css={styles.title}>{title}</h2>
+const crupdateTask = (state, task) => ({ ...state, [task.id]: { ...task } });
 
-    <TaskList listId={listId} tasks={list} dispatch={dispatch} />
-
-    <button
-      css={styles.addbutton}
-      type="button"
-      onClick={() => {
-        dispatch({
-          type: 'create',
-          label: '',
-          status: 'incomplete',
-          listId,
-        });
-      }}
-    >
-      <FontAwesomeIcon icon={faPlus} />
-      {' Add Task'}
-    </button>
-  </div>
-);
-
-GridCell.propTypes = {
-  column: PropTypes.number.isRequired,
-  dispatch: PropTypes.func.isRequired,
-  listId: PropTypes.number.isRequired,
-  list: PropTypes.objectOf(any).isRequired,
-  row: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
+const deleteTask = (state, id) => {
+  const newState = { ...state };
+  delete newState[id];
+  return newState;
 };
 
-export default GridCell;
+const anyEmpty = (tasks) => {
+  const labels = _map(tasks, (_v, k) => tasks[k].label.trim());
+  const emptyLabels = labels.filter(v => v === '');
+
+  return emptyLabels.length > 0;
+};
+
+const reducer = (state, action) => {
+  const { type, ...task } = action;
+
+  switch (type) {
+    case 'create':
+      if (anyEmpty(state)) return state;
+      return crupdateTask(state, { ...task, id: uuid() });
+    case 'update':
+      return crupdateTask(state, { ...task });
+    case 'complete':
+      if (task.status === 'completed') {
+        return crupdateTask(state, { ...task, status: 'uncompleted' });
+      }
+
+      return crupdateTask(state, { ...task, status: 'completed' });
+    case 'defer':
+      if (task.status !== 'deferred') {
+        return crupdateTask(state, { ...task, status: 'deferred' });
+      }
+
+      return crupdateTask(state, { ...task, status: 'uncompleted' });
+    case 'cancel':
+      if (task.status !== 'canceled') {
+        return crupdateTask(state, { ...task, status: 'canceled' });
+      }
+
+      return crupdateTask(state, { ...task, status: 'uncompleted' });
+    case 'delete':
+      return deleteTask(state, task.id);
+    default:
+      console.error('Unknown action: %s', action);
+      return state;
+  }
+};
+
+const usePersistence = (key, initialValue) => {
+  const [storedValue, setStoredState] = useLocalStorage(key, initialValue);
+  const [state, dispatch] = useReducer(reducer, storedValue);
+
+  useEffect(() => setStoredState(state), [setStoredState, state]);
+
+  return [state, dispatch];
+};
+
+const Cell = ({ title, column, row }) => {
+  const isoWeek = getISOWeek(new Date());
+  const persistenceKey = `${isoWeek}:${title}`;
+  const [tasks, dispatch] = usePersistence(persistenceKey, {});
+
+  return (
+    <div
+      css={[
+        styles.cell,
+        styles[`column${column}Cell`],
+        styles[`row${row}Cell`],
+      ]}
+    >
+      <h2 css={styles.title}>{title}</h2>
+
+      <TaskList tasks={tasks} dispatch={dispatch} />
+
+      <button
+        css={styles.addbutton}
+        type="button"
+        onClick={() => {
+          dispatch({
+            type: 'create',
+            label: '',
+            status: 'incomplete',
+          });
+        }}
+      >
+        <FontAwesomeIcon icon={faPlus} />
+        {' Add Task'}
+      </button>
+    </div>
+  );
+};
+
+Cell.propTypes = {
+  title: PropTypes.string.isRequired,
+  column: PropTypes.number.isRequired,
+  row: PropTypes.number.isRequired,
+};
+
+export default Cell;
