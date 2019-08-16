@@ -1,8 +1,8 @@
 import { css, Global } from '@emotion/core';
 import emotionNormalize from 'emotion-normalize';
 import React from 'react';
-import Grid from './grid';
-import NavBar from './navbar';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Page from './page';
 
 const Root = () => {
   const date = new Date();
@@ -19,8 +19,16 @@ const Root = () => {
           }
         `}
       />
-      <NavBar date={date} />
-      <Grid date={date} />
+      <Router>
+        <div>
+          <Route path="/" exact render={() => <Page date={date} />} />
+          <Route
+            path="/:date"
+            exact
+            render={({ match }) => <Page date={match.params.date} />}
+          />
+        </div>
+      </Router>
     </div>
   );
 };
