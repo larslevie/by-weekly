@@ -37,7 +37,11 @@ const Root = () => {
       />
       <Router>
         <div>
-          <PrivateRoute path="/" exact render={() => <Page date={date} />} />
+          <PrivateRoute
+            path="/"
+            exact
+            render={() => <Page date={date.toUTCString()} />}
+          />
           <PrivateRoute
             path="/:date(\d+)"
             exact
