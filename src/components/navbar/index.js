@@ -1,37 +1,52 @@
+import endOfWeek from 'date-fns/end_of_week';
+import formatDate from 'date-fns/format';
+import getISOWeek from 'date-fns/get_iso_week';
+import startOfWeek from 'date-fns/start_of_week';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Toolbar, ToolbarItem, useToolbarState } from 'reakit';
-import getISOWeek from 'date-fns/get_iso_week';
-import startOfISOWeek from 'date-fns/start_of_iso_week';
-import endOfISOWeek from 'date-fns/end_of_iso_week';
-import formatDate from 'date-fns/format';
 import styles from './styles';
 
-const NavBar = () => {
+const NavBar = ({ date }) => {
   const toolbar = useToolbarState();
-  const isoWeek = getISOWeek(new Date());
-  const startOfWeek = startOfISOWeek(new Date());
-  const endOfWeek = endOfISOWeek(new Date());
+  const isoWeek = getISOWeek(date);
+  const firstDay = startOfWeek(date, { weekStartsOn: 1 });
+  const lastDay = endOfWeek(date, { weekStartsOn: 1 });
 
   return (
     <Toolbar {...toolbar} css={styles.toolbar}>
-      <ToolbarItem
-        {...toolbar}
-        as="a"
-        css={[styles.toolbarItem, styles.logo]}
-        href="/"
-      >
-        By Weekly
-      </ToolbarItem>
-      <span css={[styles.toolbarItem]}>
-        {formatDate(startOfWeek, 'MM/DD')}
-        {' '}
+      <div css={styles.toolbarStart}>
+        <span css={[styles.toolbarItem]}>
+          The Week of
+          {' '}
+          {formatDate(firstDay, 'MMMM DD')}
+          {' '}
 &ndash;
-        {' '}
-        {formatDate(endOfWeek, 'MM/DD')}
-      </span>
-      <span css={[styles.toolbarItem]}>{`Week ${isoWeek}`}</span>
+          {' '}
+          {formatDate(lastDay, 'MMMM DD')}
+          <span css={styles.weekNumber}>
+            {' / '}
+            {isoWeek}
+          </span>
+        </span>
+      </div>
+
+      <div css={styles.toolbarEnd}>
+        <ToolbarItem
+          {...toolbar}
+          as="a"
+          css={[styles.toolbarItem, styles.logo]}
+          href="/"
+        >
+          By Weekly
+        </ToolbarItem>
+      </div>
     </Toolbar>
   );
+};
+
+NavBar.propTypes = {
+  date: PropTypes.string.isRequired,
 };
 
 export default NavBar;

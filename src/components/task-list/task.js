@@ -10,12 +10,12 @@ import styles from './styles';
 
 const TaskForm = ({ render }) => render();
 
-const renderTask = (dispatch, task) => (
+const Task = ({ task, dispatch, listId }) => (
   <li css={styles.task}>
     <input
       checked={task.status === 'completed'}
       css={styles.taskCheckbox}
-      onChange={() => dispatch({ ...task, type: 'complete' })}
+      onChange={() => dispatch({ ...task, listId, type: 'complete' })}
       type="checkbox"
     />
     <input
@@ -31,6 +31,7 @@ const renderTask = (dispatch, task) => (
       onChange={({ target: { value } }) => {
         dispatch({
           ...task,
+          listId,
           type: 'update',
           label: value,
         });
@@ -40,7 +41,7 @@ const renderTask = (dispatch, task) => (
     <div css={styles.actions}>
       <button
         css={styles.taskButton}
-        onClick={() => dispatch({ ...task, type: 'delete' })}
+        onClick={() => dispatch({ ...task, listId, type: 'delete' })}
         type="button"
       >
         <FontAwesomeIcon icon={faTimesCircle} />
@@ -48,7 +49,7 @@ const renderTask = (dispatch, task) => (
 
       <button
         css={styles.taskButton}
-        onClick={() => dispatch({ ...task, type: 'cancel' })}
+        onClick={() => dispatch({ ...task, listId, type: 'cancel' })}
         type="button"
       >
         <FontAwesomeIcon icon={faMinusSquare} />
@@ -56,7 +57,7 @@ const renderTask = (dispatch, task) => (
 
       <button
         css={styles.taskButton}
-        onClick={() => dispatch({ ...task, type: 'defer' })}
+        onClick={() => dispatch({ ...task, listId, type: 'defer' })}
         type="button"
       >
         <FontAwesomeIcon icon={faExternalLinkSquareAlt} />
@@ -65,11 +66,10 @@ const renderTask = (dispatch, task) => (
   </li>
 );
 
-const Task = ({ task, dispatch }) => renderTask(dispatch, task);
-
 Task.propTypes = {
-  task: PropTypes.shape({ label: PropTypes.string }).isRequired,
   dispatch: PropTypes.func.isRequired,
+  listId: PropTypes.number.isRequired,
+  task: PropTypes.shape({ label: PropTypes.string }).isRequired,
 };
 
 TaskForm.propTypes = {

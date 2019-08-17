@@ -7,9 +7,9 @@ services:
       - "bin/run"
     ports:
       - 8001:8001
-    # environment:
-    #   WATCH: "1"
-    #   ENVIRONMENT: "development"
+    environment:
+      WATCH: "1"
+      ENVIRONMENT: "development"
     volumes:
       - ../by-weekly/src:/opt/by-weekly/src
       - ../by-weekly/dist:/opt/by-weekly/dist
