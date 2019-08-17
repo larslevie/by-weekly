@@ -1,6 +1,6 @@
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import PropTypes from 'prop-types';
+import PropTypes, { any } from 'prop-types';
 import React from 'react';
 import TaskList from '../task-list';
 import styles from './styles';
@@ -37,7 +37,7 @@ GridCell.propTypes = {
   column: PropTypes.number.isRequired,
   dispatch: PropTypes.func.isRequired,
   listId: PropTypes.number.isRequired,
-  list: PropTypes.objectOf({}).isRequired,
+  list: PropTypes.objectOf(any).isRequired,
   row: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
 };
