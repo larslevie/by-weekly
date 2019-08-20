@@ -20,38 +20,29 @@ const config = {
 firebase.initializeApp(config);
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
-const Root = () => {
-  const date = new Date();
-
-  return (
-    <div>
-      <Global
-        styles={css`
-          ${emotionNormalize}
-          body {
-            font-family: -apple-system, system-ui, BlinkMacSystemFont,
-              'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            padding: 0 16px;
-          }
-        `}
-      />
-      <Router>
-        <div>
-          <PrivateRoute
-            path="/"
-            exact
-            render={() => <Page date={date.toUTCString()} />}
-          />
-          <PrivateRoute
-            path="/:date(\d+)"
-            exact
-            render={({ match }) => <Page date={match.params.date} />}
-          />
-          <Route path="/login" exact component={SignInScreen} />
-        </div>
-      </Router>
-    </div>
-  );
-};
+const Root = () => (
+  <div>
+    <Global
+      styles={css`
+        ${emotionNormalize}
+        body {
+          font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI',
+            Roboto, 'Helvetica Neue', Arial, sans-serif;
+          padding: 0 16px;
+        }
+      `}
+    />
+    <Router>
+      <div>
+        <PrivateRoute
+          path="/workspaces/:key([a-z0-9]+)"
+          exact
+          component={Page}
+        />
+        <Route path="/login" exact component={SignInScreen} />
+      </div>
+    </Router>
+  </div>
+);
 
 export default Root;

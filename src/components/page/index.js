@@ -1,17 +1,43 @@
-import React from 'react';
+import firebase from 'firebase';
 import PropTypes from 'prop-types';
-import Grid from '../grid';
-import NavBar from '../navbar';
+import React from 'react';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import Workspace from '../workspace';
 
-const Page = ({ date }) => (
-  <div>
-    <NavBar date={date} />
-    <Grid date={date} />
-  </div>
-);
+const Page = ({
+  match: {
+    params: { key },
+  },
+}) => {
+  const workspaceRef = firebase
+    .firestore()
+    .collection('workspaces')
+    .where('userId', '==', firebase.auth().currentUser.uid)
+    .where('name', '==', key);
+
+  const [workspaces, loading, error] = useCollectionData(workspaceRef, {
+    snapshotListenOptions: { includeMetadataChanges: true },
+    idField: 'id',
+  });
+
+  if (error) return 'Error';
+  if (loading) return 'Loading';
+
+  const workspace = workspaces[0];
+
+  return workspace ? (
+    <Workspace workspace={workspace} />
+  ) : (
+    <div>Workspace not found.</div>
+  );
+};
 
 Page.propTypes = {
-  date: PropTypes.string.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      key: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
 export default Page;
