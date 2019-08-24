@@ -13,7 +13,7 @@ const useBoard = (workspaceId) => {
     idField: 'id',
   });
 
-  if (!boards) createCurrent({ workspaceId });
+  if (!loading && !error && boards.length === 0) createCurrent({ workspaceId });
 
   return [boards && boards[0], loading, error];
 };
