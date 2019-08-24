@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import firebase from 'firebase';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
+import { db } from '../../constants/firebase';
 
 const Item = ({ workspaceId, itemId }) => {
-  const itemRef = firebase
-    .firestore()
-    .doc(`workspaces/${workspaceId}/items/${itemId}`);
+  const itemRef = db.doc(`workspaces/${workspaceId}/items/${itemId}`);
 
   const [item, loading, error] = useDocumentData(itemRef, {
     snapshotListenOptions: { includeMetadataChanges: true },

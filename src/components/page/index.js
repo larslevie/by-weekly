@@ -2,6 +2,7 @@ import firebase from 'firebase';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { db } from '../../constants/firebase';
 import Workspace from '../workspace';
 
 const Page = ({
@@ -9,8 +10,7 @@ const Page = ({
     params: { key },
   },
 }) => {
-  const workspaceRef = firebase
-    .firestore()
+  const workspaceRef = db
     .collection('workspaces')
     .where('userId', '==', firebase.auth().currentUser.uid)
     .where('name', '==', key);

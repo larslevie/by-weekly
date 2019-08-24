@@ -6,8 +6,6 @@ import Item from '../item';
 const Block = ({ workspaceId, block }) => {
   const itemIds = block.itemRefs.map(itemRef => itemRef.id);
 
-  console.dir(itemIds);
-
   return (
     <li>
       {block.label}
