@@ -18,6 +18,7 @@ export const BoardSchema = {
 export const BlockSchema = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  order: PropTypes.number,
 };
 
 export const ItemSchema = {

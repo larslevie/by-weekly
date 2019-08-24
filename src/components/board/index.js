@@ -6,9 +6,9 @@ import { BoardSchema, WorkspaceSchema } from '../../schemata';
 import Block from '../block';
 
 const Board = ({ workspace, board }) => {
-  const blocksRef = db.collection(
-    `workspaces/${workspace.id}/boards/${board.id}/blocks`,
-  );
+  const blocksRef = db
+    .collection(`workspaces/${workspace.id}/boards/${board.id}/blocks`)
+    .orderBy('order', 'asc');
 
   const [blocks, loading, error] = useCollectionData(blocksRef, {
     snapshotListenOptions: { includeMetadataChanges: true },

@@ -20,7 +20,13 @@ export const create = ({ workspaceId, isoWeek, name }) => {
     .set({ isoWeek, name, type: 'iso-week' });
 
   ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Next'].forEach(
-    label => createBlock({ workspaceId, boardId, label }),
+    (label, i) =>
+      createBlock({
+        boardId,
+        label,
+        order: i + 1,
+        workspaceId,
+      }),
   );
 };
 
