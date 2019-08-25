@@ -1,43 +1,41 @@
-import firebase from 'firebase';
+/** @jsx jsx */
+
 import PropTypes from 'prop-types';
-import React from 'react';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { db } from '../../constants/firebase';
-import Workspace from '../workspace';
+import { jsx } from 'theme-ui';
+import NavBar from '../navbar';
 
-const Page = ({
-  match: {
-    params: { key },
-  },
-}) => {
-  const workspaceRef = db
-    .collection('workspaces')
-    .where('userId', '==', firebase.auth().currentUser.uid)
-    .where('name', '==', key);
-
-  const [workspaces, loading, error] = useCollectionData(workspaceRef, {
-    snapshotListenOptions: { includeMetadataChanges: true },
-    idField: 'id',
-  });
-
-  if (error) return 'Error';
-  if (loading) return 'Loading';
-
-  const workspace = workspaces[0];
-
-  return workspace ? (
-    <Workspace workspace={workspace} />
-  ) : (
-    <div>Workspace not found.</div>
-  );
-};
+const Page = ({ children }) => (
+  <div
+    sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100vh',
+    }}
+  >
+    <NavBar date={new Date().toISOString()} />
+    <div
+      sx={{
+        flex: 1,
+        width: '100%',
+      }}
+    >
+      {children}
+    </div>
+    <footer
+      sx={{
+        width: '100%',
+      }}
+    >
+      Footer
+    </footer>
+  </div>
+);
 
 Page.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      key: PropTypes.string,
-    }),
-  }).isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
 };
 
 export default Page;

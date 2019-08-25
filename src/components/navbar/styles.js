@@ -1,9 +1,8 @@
 import { css } from '@emotion/core';
 
 const toolbar = css({
-  marginBottom: '16px',
-  display: 'flex',
   borderTop: '8px solid #33e',
+  display: 'flex',
 });
 
 const logo = css({

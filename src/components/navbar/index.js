@@ -17,12 +17,7 @@ const NavBar = ({ date }) => {
     <Toolbar {...toolbar} css={styles.toolbar}>
       <div css={styles.toolbarStart}>
         <span css={[styles.toolbarItem]}>
-          The Week of
-          {' '}
-          {formatDate(firstDay, 'MMMM DD')}
-          {' '}
-&ndash;
-          {' '}
+          The Week of {formatDate(firstDay, 'MMMM DD')} &ndash;{' '}
           {formatDate(lastDay, 'MMMM DD')}
           <span css={styles.weekNumber}>
             {' / '}

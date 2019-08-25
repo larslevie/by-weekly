@@ -1,12 +1,14 @@
-import { css, Global } from '@emotion/core';
-import emotionNormalize from 'emotion-normalize';
-import React from 'react';
+/** @jsx jsx */
+
+import { Global } from '@emotion/core';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
+import { jsx, ThemeProvider } from 'theme-ui';
 import { auth, db } from '../constants/firebase';
 import { create as createWorkspace } from '../services/workspaces';
+import theme from '../theme';
 import SignInScreen from './login';
-import Page from './page';
+import Workspace from './workspace';
 import PrivateRoute from './private-route';
 
 const Resolver = () => {
@@ -30,29 +32,27 @@ const Resolver = () => {
 };
 
 const Root = () => (
-  <div>
+  <ThemeProvider theme={theme}>
     <Global
-      styles={css`
-        ${emotionNormalize}
-        body {
-          font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI',
-            Roboto, 'Helvetica Neue', Arial, sans-serif;
-          padding: 0 16px;
-        }
-      `}
+      styles={t => ({
+        body: {
+          backgroundColor: t.colors.background,
+          color: t.colors.text,
+          fontFamily: t.fonts.body,
+          margin: 0,
+        },
+      })}
     />
     <Router>
-      <div>
-        <PrivateRoute
-          path="/workspaces/:key([a-z0-9]+)"
-          exact
-          component={Page}
-        />
-        <PrivateRoute path="/" exact component={Resolver} />
-        <Route path="/login" exact component={SignInScreen} />
-      </div>
+      <PrivateRoute
+        path="/workspaces/:key([a-z0-9]+)"
+        exact
+        component={Workspace}
+      />
+      <PrivateRoute path="/" exact component={Resolver} />
+      <Route path="/login" exact component={SignInScreen} />
     </Router>
-  </div>
+  </ThemeProvider>
 );
 
 export default Root;

@@ -1,6 +1,8 @@
+/** @jsx jsx */
+
 import PropTypes from 'prop-types';
-import React from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { jsx } from 'theme-ui';
 import { db } from '../../constants/firebase';
 import { BoardSchema, WorkspaceSchema } from '../../schemata';
 import Block from '../block';
@@ -19,18 +21,22 @@ const Board = ({ workspace, board }) => {
   if (loading) return 'Loading';
 
   return (
-    <div>
-      {board.name}
-      <ul>
-        {blocks.map(block => (
-          <Block
-            key={block.id}
-            workspaceId={workspace.id}
-            boardId={board.id}
-            block={block}
-          />
-        ))}
-      </ul>
+    <div
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        flexWrap: 'wrap',
+        height: '100%',
+      }}
+    >
+      {blocks.map(block => (
+        <Block
+          key={block.id}
+          workspaceId={workspace.id}
+          boardId={board.id}
+          block={block}
+        />
+      ))}
     </div>
   );
 };
