@@ -6,6 +6,7 @@
   },
   "rules": {
     "implicit-arrow-linebreak": ["off"],
+    "import/no-named-as-default-member": ["off"],
     "max-len": [
       "warn",
       {
