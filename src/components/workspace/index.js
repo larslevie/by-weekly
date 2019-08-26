@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /** @jsx jsx */
 
 import PropTypes from 'prop-types';
@@ -25,7 +26,7 @@ const useWorkspace = (name) => {
   return [workspaces && workspaces[0], loading, error];
 };
 
-const useBoard = (workspaceId) => {
+const useCurrentBoard = (workspaceId) => {
   const boardRef = getCurrentRef({ workspaceId });
 
   const [boards, loading, error] = useCollectionData(boardRef, {
@@ -34,31 +35,40 @@ const useBoard = (workspaceId) => {
   });
 
   if (loading || error) return [boards && boards[0], loading, error];
-  if (boards.length === 0) createCurrent({ workspaceId });
+
+  if (boards.length === 0) {
+    createCurrent({ workspaceId });
+    return [null, true, error];
+  }
 
   return [boards && boards[0], loading, error];
 };
 
-const renderBoard = (workspace, board) =>
-  board && <Board workspace={workspace} board={board} />;
+const BoardResolver = ({ workspaceId }) => {
+  const [board, loading, error] = useCurrentBoard(workspaceId);
+
+  if (loading || error) return 'Loading';
+
+  return board && <Board workspaceId={workspaceId} boardId={board.id} />;
+};
 
 const Workspace = ({
   match: {
     params: { key },
   },
 }) => {
-  const [workspace, wLoading, wError] = useWorkspace(key);
-  const [board, loading, error] = useBoard(workspace.id);
+  const [workspace, loading, error] = useWorkspace(key);
 
-  if (wError) return <Page>Error</Page>;
-  if (wLoading) return <Page>Loading</Page>;
+  if (loading) return <Page>Error</Page>;
+  if (error) return <Page>Loading</Page>;
 
-  if (error) return <Page>Error</Page>;
-  if (loading) return <Page>Loading</Page>;
+  // if (!workspace) return <Page>Loading</Page>;
 
-  if (!workspace || !board) return <Page>Loading</Page>;
-
-  return <Page>{renderBoard(workspace, board)}</Page>;
+  return (
+    <Page>
+      <BoardResolver workspaceId={workspace.id} />
+    </Page>
+  );
 };
 
 Workspace.propTypes = {

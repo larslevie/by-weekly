@@ -4,12 +4,11 @@ import PropTypes from 'prop-types';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { jsx } from 'theme-ui';
 import { db } from '../../constants/firebase';
-import { BoardSchema, WorkspaceSchema } from '../../schemata';
 import Block from '../block';
 
-const Board = ({ workspace, board }) => {
+const Board = ({ workspaceId, boardId }) => {
   const blocksRef = db
-    .collection(`workspaces/${workspace.id}/boards/${board.id}/blocks`)
+    .collection(`workspaces/${workspaceId}/boards/${boardId}/blocks`)
     .orderBy('order', 'asc');
 
   const [blocks, loading, error] = useCollectionData(blocksRef, {
@@ -32,8 +31,8 @@ const Board = ({ workspace, board }) => {
       {blocks.map(block => (
         <Block
           key={block.id}
-          workspaceId={workspace.id}
-          boardId={board.id}
+          workspaceId={workspaceId}
+          boardId={boardId}
           block={block}
         />
       ))}
@@ -42,8 +41,8 @@ const Board = ({ workspace, board }) => {
 };
 
 Board.propTypes = {
-  board: PropTypes.shape(BoardSchema).isRequired,
-  workspace: PropTypes.shape(WorkspaceSchema).isRequired,
+  boardId: PropTypes.string.isRequired,
+  workspaceId: PropTypes.string.isRequired,
 };
 
 export default Board;
