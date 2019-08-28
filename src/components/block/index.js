@@ -18,34 +18,36 @@ const renderNewItemButton = (workspaceId, blockId, boardId) => (
   </button>
 );
 
-const Block = ({ workspaceId, boardId, block }) => {
-  const itemIds = block.itemRefs.map(itemRef => itemRef.id);
+const Block = ({ workspaceId, boardId, block }) => (
+  <div
+    sx={{
+      flex: '1 1 26%',
+      maxHeight: '33%',
+      width: '50%',
+    }}
+  >
+    <h1>{block.label}</h1>
 
-  return (
-    <div
+    <ul
       sx={{
-        flex: '1 1 26%',
-        maxHeight: '33%',
-        width: '50%',
+        listStyle: 'none',
+        padding: 0,
       }}
     >
-      <h1>{block.label}</h1>
+      {block.itemIds.map(itemId => (
+        <Item
+          key={itemId}
+          blockId={block.id}
+          boardId={boardId}
+          itemId={itemId}
+          workspaceId={workspaceId}
+        />
+      ))}
+    </ul>
 
-      <ul
-        sx={{
-          listStyle: 'none',
-          padding: 0,
-        }}
-      >
-        {itemIds.map(itemId => (
-          <Item key={itemId} workspaceId={workspaceId} itemId={itemId} />
-        ))}
-      </ul>
-
-      {renderNewItemButton(workspaceId, block.id, boardId)}
-    </div>
-  );
-};
+    {renderNewItemButton(workspaceId, block.id, boardId)}
+  </div>
+);
 
 Block.propTypes = {
   block: PropTypes.shape(BlockSchema).isRequired,

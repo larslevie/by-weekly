@@ -8,12 +8,12 @@
         {
           "type": "isoWeek",
           "name": "",
-          "deferredItemRefs": [],
           "blocks": [
             {
               "label": "Monday",
-              "itemRefs": [],
-              "importantItemRefs": []
+              "deferredItemIds": [],
+              "itemIds": [],
+              "importantItemIds": []
             }
           ]
         }

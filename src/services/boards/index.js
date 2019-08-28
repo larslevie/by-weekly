@@ -2,7 +2,7 @@ import getISOWeek from 'date-fns/get_iso_week';
 import getISOYear from 'date-fns/get_iso_year';
 import uuid from 'uuid/v4';
 import { db } from '../../constants/firebase';
-import { create as createBlock } from '../blocks';
+import blocks from '../blocks';
 
 const getISOWeekKey = (date) => {
   const isoWeek = getISOWeek(date);
@@ -21,7 +21,7 @@ export const create = ({ workspaceId, isoWeek, name }) => {
 
   ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Next'].forEach(
     (label, i) =>
-      createBlock({
+      blocks.create({
         boardId,
         label,
         order: i + 1,

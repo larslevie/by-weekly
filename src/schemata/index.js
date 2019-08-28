@@ -9,8 +9,8 @@ export const WorkspaceSchema = {
 
 export const BoardSchema = {
   id: PropTypes.string.isRequired,
-  deferredItemRefs: PropTypes.arrayOf(PropTypes.string),
-  importantItemRefs: PropTypes.arrayOf(PropTypes.string),
+  deferredIds: PropTypes.arrayOf(PropTypes.string),
+  importantIds: PropTypes.arrayOf(PropTypes.string),
   name: PropTypes.string.isRequired,
   type: PropTypes.oneOf(['iso-week']).isRequired,
 };
