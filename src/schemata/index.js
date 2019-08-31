@@ -9,8 +9,8 @@ export const WorkspaceSchema = {
 
 export const BoardSchema = {
   id: PropTypes.string.isRequired,
-  deferredIds: PropTypes.arrayOf(PropTypes.string),
-  importantIds: PropTypes.arrayOf(PropTypes.string),
+  deferredItemIds: PropTypes.arrayOf(PropTypes.string),
+  importantItemIds: PropTypes.arrayOf(PropTypes.string),
   name: PropTypes.string.isRequired,
   type: PropTypes.oneOf(['iso-week']).isRequired,
 };
@@ -24,10 +24,8 @@ export const BlockSchema = {
 export const ItemSchema = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  status: PropTypes.shape({
-    label: PropTypes.oneOf(['complete', 'incomplete', 'canceled']).isRequired,
-    at: PropTypes.string.isRequired,
-  }),
+  canceledAt: PropTypes.string.isRequired,
+  completedAt: PropTypes.string.isRequired,
 };
 
 export default {

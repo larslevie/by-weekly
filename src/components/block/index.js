@@ -37,7 +37,7 @@ const Block = ({ workspaceId, boardId, block }) => (
       {block.itemIds.map(itemId => (
         <Item
           key={itemId}
-          blockId={block.id}
+          block={block}
           boardId={boardId}
           itemId={itemId}
           workspaceId={workspaceId}

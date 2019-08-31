@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /** @jsx jsx */
 
 import PropTypes from 'prop-types';
@@ -61,8 +60,6 @@ const Workspace = ({
 
   if (loading) return <Page>Error</Page>;
   if (error) return <Page>Loading</Page>;
-
-  // if (!workspace) return <Page>Loading</Page>;
 
   return (
     <Page>

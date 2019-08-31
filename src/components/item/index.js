@@ -11,12 +11,11 @@ import { jsx } from 'theme-ui';
 import { db } from '../../constants/firebase';
 import items from '../../services/items';
 import blocks from '../../services/blocks';
+import schemata from '../../schemata';
 
 const ItemControls = ({
-  workspaceId, itemId, boardId, blockId,
+  workspaceId, item, boardId, blockId,
 }) => {
-  console.log([workspaceId, itemId]);
-
   const menu = useMenuState();
 
   return (
@@ -32,24 +31,43 @@ const ItemControls = ({
           {...menu}
           onClick={() => {
             menu.hide();
-            blocks.deleteItem({
-              workspaceId,
-              boardId,
+            blocks.toggleItemDeferred({
               blockId,
-              itemId,
+              boardId,
+              itemId: item.id,
+              workspaceId,
+              isDeferred: item.status === 'deferred',
             });
           }}
         >
-          Delete
+          {item.status === 'deferred' ? 'Undefer' : 'Defer'}
         </MenuItem>
         <MenuItem
           {...menu}
           onClick={() => {
             menu.hide();
-            console.log('clicked on button');
+            blocks.cancelItem({
+              blockId,
+              boardId,
+              itemId: item.id,
+              workspaceId,
+            });
           }}
         >
-          Defer
+          {item.status === 'cancelled' ? 'Uncancel' : 'Cancel'}
+        </MenuItem>
+        <MenuItem
+          {...menu}
+          onClick={() => {
+            blocks.deleteItem({
+              blockId,
+              boardId,
+              itemId: item.id,
+              workspaceId,
+            });
+          }}
+        >
+          Delete
         </MenuItem>
       </Menu>
     </React.Fragment>
@@ -57,7 +75,7 @@ const ItemControls = ({
 };
 
 const Item = ({
-  workspaceId, itemId, boardId, blockId,
+  workspaceId, itemId, boardId, block,
 }) => {
   const itemRef = db.doc(`workspaces/${workspaceId}/items/${itemId}`);
 
@@ -69,19 +87,25 @@ const Item = ({
   if (error) return 'Error';
   if (loading) return '';
 
+  item.status = blocks.getItemStatus({ block, item });
+  item.isImportant = blocks.isItemImportant({ block, itemId: item.id });
+
   return (
     <li>
       <Checkbox
         type="checkbox"
         name="completed"
-        checked={!!item.completedAt}
-        onChange={({ target: { checked } }) =>
-          items.update({
+        checked={item.status === 'completed'}
+        onChange={({ target: { checked } }) => {
+          console.log('Completeing');
+          blocks.toggleItemComplete({
             workspaceId,
+            blockId: block.id,
+            boardId,
             itemId,
-            completedAt: checked ? new Date() : null,
-          })
-        }
+            isComplete: checked,
+          });
+        }}
       />
       <input
         type="text"
@@ -93,16 +117,16 @@ const Item = ({
       />
       <ItemControls
         workspaceId={workspaceId}
-        itemId={itemId}
+        item={item}
         boardId={boardId}
-        blockId={blockId}
+        blockId={block.id}
       />
     </li>
   );
 };
 
 Item.propTypes = {
-  blockId: PropTypes.string.isRequired,
+  block: PropTypes.shape(schemata.BlockSchema).isRequired,
   boardId: PropTypes.string.isRequired,
   itemId: PropTypes.string.isRequired,
   workspaceId: PropTypes.string.isRequired,
@@ -111,7 +135,7 @@ Item.propTypes = {
 ItemControls.propTypes = {
   blockId: PropTypes.string.isRequired,
   boardId: PropTypes.string.isRequired,
-  itemId: PropTypes.string.isRequired,
+  item: PropTypes.shape(schemata.ItemSchema).isRequired,
   workspaceId: PropTypes.string.isRequired,
 };
 
