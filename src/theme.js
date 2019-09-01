@@ -4,7 +4,7 @@ export default {
       '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", '
       + 'Roboto, "Helvetica Neue", Arial, sans-serif;',
   },
-  fontSizes: ['0.5rem', '1rem', '1.25', '1.5rem', '2.215rem', '3rem'],
+  fontSizes: ['0.5rem', '1rem', '1.25rem', '1.5rem', '2.215rem', '3rem'],
   space: [0, '8px', '16px', '24px', '32px'],
   colors: {
     text: '#000',

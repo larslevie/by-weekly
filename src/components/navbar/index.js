@@ -1,10 +1,13 @@
+/** @jsx jsx */
+
 import endOfWeek from 'date-fns/end_of_week';
 import formatDate from 'date-fns/format';
 import getISOWeek from 'date-fns/get_iso_week';
 import startOfWeek from 'date-fns/start_of_week';
 import PropTypes from 'prop-types';
-import React from 'react';
 import { Toolbar, ToolbarItem, useToolbarState } from 'reakit';
+import { jsx } from 'theme-ui';
+import { auth } from '../../constants/firebase';
 import styles from './styles';
 
 const NavBar = ({ date }) => {
@@ -14,23 +17,31 @@ const NavBar = ({ date }) => {
   const lastDay = endOfWeek(date, { weekStartsOn: 1 });
 
   return (
-    <Toolbar {...toolbar} css={styles.toolbar} aria-label="Navigation">
-      <div css={styles.toolbarStart}>
-        <span css={[styles.toolbarItem]}>
+    <Toolbar {...toolbar} sx={styles.toolbar} aria-label="Navigation">
+      <div sx={styles.toolbarStart}>
+        <span sx={styles.toolbarItem}>
           The Week of {formatDate(firstDay, 'MMMM DD')} &ndash;{' '}
           {formatDate(lastDay, 'MMMM DD')}
-          <span css={styles.weekNumber}>
+          <span sx={styles.weekNumber}>
             {' / '}
             {isoWeek}
           </span>
         </span>
       </div>
 
-      <div css={styles.toolbarEnd}>
+      <div sx={styles.toolbarEnd}>
+        <ToolbarItem
+          {...toolbar}
+          sx={styles.button}
+          as="button"
+          onClick={() => auth.signOut()}
+        >
+          Logout
+        </ToolbarItem>
         <ToolbarItem
           {...toolbar}
           as="a"
-          css={[styles.toolbarItem, styles.logo]}
+          sx={{ ...styles.toolbarItem, ...styles.logo }}
           href="/"
         >
           By Weekly

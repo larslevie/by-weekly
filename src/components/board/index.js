@@ -25,7 +25,7 @@ const Board = ({ workspaceId, boardId }) => {
         display: 'flex',
         flexDirection: 'column',
         flexWrap: 'wrap',
-        height: '100%',
+        height: ['auto', '100%'],
       }}
     >
       {blocks.map(block => (

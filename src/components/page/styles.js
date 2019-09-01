@@ -2,7 +2,7 @@ export const root = {
   boxSizing: 'border-box',
   display: 'flex',
   flexDirection: 'column',
-  height: '100vh',
+  height: ['auto', '100vh'],
   paddingLeft: 2,
   paddingRight: 2,
 };

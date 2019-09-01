@@ -1,9 +1,9 @@
 const root = {
   boxSizing: 'border-box',
-  flex: '1 1 26%',
-  maxHeight: '33%',
+  flex: ['1', '1 1 26%'],
+  maxHeight: ['auto', '33%'],
   paddingLeft: 2,
-  width: '50%',
+  width: ['auto', '50%'],
   display: 'flex',
   flexDirection: 'column',
 };
