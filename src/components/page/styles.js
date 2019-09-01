@@ -13,6 +13,10 @@ export const content = {
 };
 
 export const footer = {
+  fontSize: '12px',
+  paddingBottom: 2,
+  paddingTop: 2,
+  textAlign: 'right',
   width: '100%',
 };
 

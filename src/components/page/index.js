@@ -9,7 +9,10 @@ const Page = ({ children }) => (
   <div sx={styles.root}>
     <NavBar date={new Date().toISOString()} />
     <div sx={styles.content}>{children}</div>
-    <footer sx={styles.footer}>Footer</footer>
+    <footer sx={styles.footer}>
+      Made by <a href="http://levieindustries.com">Levie Industries</a>.
+      Copyright &copy; 2019. All rights reserved.
+    </footer>
   </div>
 );
 
