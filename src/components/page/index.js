@@ -3,31 +3,13 @@
 import PropTypes from 'prop-types';
 import { jsx } from 'theme-ui';
 import NavBar from '../navbar';
+import styles from './styles';
 
 const Page = ({ children }) => (
-  <div
-    sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      height: '100vh',
-    }}
-  >
+  <div sx={styles.root}>
     <NavBar date={new Date().toISOString()} />
-    <div
-      sx={{
-        flex: 1,
-        width: '100%',
-      }}
-    >
-      {children}
-    </div>
-    <footer
-      sx={{
-        width: '100%',
-      }}
-    >
-      Footer
-    </footer>
+    <div sx={styles.content}>{children}</div>
+    <footer sx={styles.footer}>Footer</footer>
   </div>
 );
 

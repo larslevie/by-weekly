@@ -14,7 +14,7 @@ const NavBar = ({ date }) => {
   const lastDay = endOfWeek(date, { weekStartsOn: 1 });
 
   return (
-    <Toolbar {...toolbar} css={styles.toolbar}>
+    <Toolbar {...toolbar} css={styles.toolbar} aria-label="Navigation">
       <div css={styles.toolbarStart}>
         <span css={[styles.toolbarItem]}>
           The Week of {formatDate(firstDay, 'MMMM DD')} &ndash;{' '}

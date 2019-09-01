@@ -1,7 +1,9 @@
 /** @jsx jsx */
 
-import React from 'react';
+import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import {
   Menu, MenuDisclosure, MenuItem, useMenuState,
@@ -9,9 +11,10 @@ import {
 import { Checkbox } from 'reakit/Checkbox';
 import { jsx } from 'theme-ui';
 import { db } from '../../constants/firebase';
-import items from '../../services/items';
-import blocks from '../../services/blocks';
 import schemata from '../../schemata';
+import blocks from '../../services/blocks';
+import items from '../../services/items';
+import styles from './styles';
 
 const ItemControls = ({
   workspaceId, item, boardId, blockId,
@@ -20,15 +23,14 @@ const ItemControls = ({
 
   return (
     <React.Fragment>
-      <MenuDisclosure
-        {...menu}
-        sx={{ border: 'none', backgroundColor: 'background' }}
-      >
-        Preferences
+      <MenuDisclosure {...menu} sx={styles.menuDisclosure}>
+        <FontAwesomeIcon icon={faEllipsisH} />
       </MenuDisclosure>
-      <Menu {...menu} aria-label="Item controls">
+
+      <Menu {...menu} aria-label="Item controls" sx={styles.menu}>
         <MenuItem
           {...menu}
+          sx={styles.menuItem}
           onClick={() => {
             menu.hide();
             blocks.toggleItemDeferred({
@@ -42,8 +44,10 @@ const ItemControls = ({
         >
           {item.status === 'deferred' ? 'Undefer' : 'Defer'}
         </MenuItem>
+
         <MenuItem
           {...menu}
+          sx={styles.menuItem}
           onClick={() => {
             menu.hide();
             blocks.cancelItem({
@@ -56,8 +60,10 @@ const ItemControls = ({
         >
           {item.status === 'cancelled' ? 'Uncancel' : 'Cancel'}
         </MenuItem>
+
         <MenuItem
           {...menu}
+          sx={styles.menuItem}
           onClick={() => {
             blocks.deleteItem({
               blockId,
@@ -91,30 +97,33 @@ const Item = ({
   item.isImportant = blocks.isItemImportant({ block, itemId: item.id });
 
   return (
-    <li>
-      <Checkbox
-        type="checkbox"
-        name="completed"
-        checked={item.status === 'completed'}
-        onChange={({ target: { checked } }) => {
-          console.log('Completeing');
-          blocks.toggleItemComplete({
-            workspaceId,
-            blockId: block.id,
-            boardId,
-            itemId,
-            isComplete: checked,
-          });
-        }}
-      />
-      <input
-        type="text"
-        name="label"
-        value={item.label}
-        onChange={({ target: { value } }) =>
-          items.update({ workspaceId, itemId, label: value })
-        }
-      />
+    <li sx={styles.root}>
+      <div sx={styles.itemWrapper}>
+        <Checkbox
+          type="checkbox"
+          name="completed"
+          sx={styles.checkbox}
+          checked={item.status === 'completed'}
+          onChange={({ target: { checked } }) => {
+            blocks.toggleItemComplete({
+              workspaceId,
+              blockId: block.id,
+              boardId,
+              itemId,
+              isComplete: checked,
+            });
+          }}
+        />
+        <input
+          type="text"
+          name="label"
+          sx={styles.itemLabel}
+          value={item.label}
+          onChange={({ target: { value } }) =>
+            items.update({ workspaceId, itemId, label: value })
+          }
+        />
+      </div>
       <ItemControls
         workspaceId={workspaceId}
         item={item}
