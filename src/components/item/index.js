@@ -8,12 +8,12 @@ import { useDocumentData } from 'react-firebase-hooks/firestore';
 import {
   Menu, MenuDisclosure, MenuItem, useMenuState,
 } from 'reakit';
-import { Checkbox } from 'reakit/Checkbox';
 import { jsx } from 'theme-ui';
 import { db } from '../../constants/firebase';
 import schemata from '../../schemata';
 import blocks from '../../services/blocks';
 import items from '../../services/items';
+import Checkbox from '../shared/checkbox';
 import styles from './styles';
 
 const ItemControls = ({
@@ -100,11 +100,8 @@ const Item = ({
     <li sx={styles.root}>
       <div sx={styles.itemWrapper}>
         <Checkbox
-          type="checkbox"
-          name="completed"
-          sx={styles.checkbox}
           checked={item.status === 'completed'}
-          onChange={({ target: { checked } }) => {
+          handleChange={({ target: { checked } }) => {
             blocks.toggleItemComplete({
               workspaceId,
               blockId: block.id,

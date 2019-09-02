@@ -10,11 +10,11 @@ export const itemWrapper = {
 
 export const itemLabel = {
   border: 'none',
-  flex: 1,
-  fontSize: 1,
   borderBottomColor: 'background',
   borderBottomStyle: 'solid',
   borderBottomWidth: '2px',
+  flex: 1,
+  fontSize: 1,
   paddingBottom: '4px',
   '&:focus': {
     borderBottomColor: 'blue',
