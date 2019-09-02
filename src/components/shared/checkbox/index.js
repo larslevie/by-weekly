@@ -2,6 +2,8 @@
 
 import PropTypes from 'prop-types';
 import { jsx } from 'theme-ui';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './styles';
 
 const Checkbox = ({ checked, handleChange }) => (
@@ -14,7 +16,9 @@ const Checkbox = ({ checked, handleChange }) => (
       sx={styles.input}
       type="checkbox"
     />
-    <span sx={styles.customCheckbox} />
+    <span sx={styles.customCheckbox}>
+      <FontAwesomeIcon icon={faCheck} size="xs" sx={styles.icon} />
+    </span>
   </label>
 );
 
