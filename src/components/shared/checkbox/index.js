@@ -6,12 +6,12 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './styles';
 
-const Checkbox = ({ checked, handleChange }) => (
-  <label sx={styles.root} htmlFor="male">
+const Checkbox = ({ checked, handleChange, itemId }) => (
+  <label sx={styles.root} htmlFor={`${itemId}-isComplete`}>
     <input
       checked={checked}
-      id="male"
-      name="gender"
+      id={`${itemId}-isComplete`}
+      name="isComplete"
       onChange={event => handleChange(event)}
       sx={styles.input}
       type="checkbox"
@@ -25,6 +25,7 @@ const Checkbox = ({ checked, handleChange }) => (
 Checkbox.propTypes = {
   checked: PropTypes.bool.isRequired,
   handleChange: PropTypes.func,
+  itemId: PropTypes.number.isRequired,
 };
 
 Checkbox.defaultProps = {
