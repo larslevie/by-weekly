@@ -1,17 +1,26 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Grid from '../grid';
-import NavBar from '../navbar';
+/** @jsx jsx */
 
-const Page = ({ date }) => (
-  <div>
-    <NavBar date={date} />
-    <Grid date={date} />
+import PropTypes from 'prop-types';
+import { jsx } from 'theme-ui';
+import NavBar from '../navbar';
+import styles from './styles';
+
+const Page = ({ children }) => (
+  <div sx={styles.root}>
+    <NavBar date={new Date().toISOString()} />
+    <div sx={styles.content}>{children}</div>
+    <footer sx={styles.footer}>
+      Made by <a href="http://levieindustries.com">Levie Industries</a>.
+      Copyright &copy; 2019. All rights reserved.
+    </footer>
   </div>
 );
 
 Page.propTypes = {
-  date: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
 };
 
 export default Page;

@@ -1,0 +1,30 @@
+{
+  "workspaces": [
+    {
+      "version": 1,
+      "userId": 1,
+      "label": "",
+      "boards": [
+        {
+          "type": "isoWeek",
+          "name": "",
+          "blocks": [
+            {
+              "label": "Monday",
+              "deferredItemIds": [],
+              "itemIds": [],
+              "importantItemIds": []
+            }
+          ]
+        }
+      ],
+      "items": [
+        {
+          "label": "FU : KW : By Weekly data model",
+          "completedAt": null,
+          "canceledAt": null
+        }
+      ]
+    }
+  ]
+}

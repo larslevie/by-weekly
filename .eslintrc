@@ -5,14 +5,16 @@
     "browser": true
   },
   "rules": {
-    "react/jsx-filename-extension": ["off"],
     "implicit-arrow-linebreak": ["off"],
+    "import/no-named-as-default-member": ["off"],
     "max-len": [
       "warn",
       {
         "code": 80
       }
     ],
+    "react/jsx-filename-extension": ["off"],
+    "react/jsx-one-expression-per-line": ["off"],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn"
   }
