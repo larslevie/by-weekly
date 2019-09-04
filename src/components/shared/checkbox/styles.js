@@ -24,12 +24,20 @@ const customCheckbox = {
   textAlign: 'center',
   top: '3px',
   width: `${size}px`,
+  '.status-deferred &': {
+    backgroundColor: 'teal',
+    borderColor: 'tealAccent',
+  },
+  '.status-canceled &': {
+    backgroundColor: 'red',
+    borderColor: 'redAccent',
+  },
 };
 
 const icon = {
   opacity: 0,
   verticalAlign: '1px',
-  'input:checked ~ span > &': {
+  'input:checked ~ span > &, .status-deferred * &, .status-canceled * &': {
     opacity: 1,
   },
 };

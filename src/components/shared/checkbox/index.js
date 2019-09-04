@@ -1,13 +1,12 @@
 /** @jsx jsx */
 
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import { jsx } from 'theme-ui';
 import styles from './styles';
 
 const Checkbox = ({
-  checked, handleChange, itemKey, name, ...rest
+  checked, handleChange, itemKey, name, icon, ...rest
 }) => (
   <label sx={styles.root} htmlFor={itemKey}>
     <input
@@ -20,7 +19,7 @@ const Checkbox = ({
       {...rest}
     />
     <span sx={styles.customCheckbox}>
-      <FontAwesomeIcon icon={faCheck} size="xs" sx={styles.icon} />
+      <FontAwesomeIcon icon={icon} size="xs" sx={styles.icon} />
     </span>
   </label>
 );
@@ -30,6 +29,7 @@ Checkbox.propTypes = {
   handleChange: PropTypes.func,
   itemKey: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  icon: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 Checkbox.defaultProps = {

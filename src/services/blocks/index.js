@@ -123,8 +123,8 @@ const toggleItemComplete = async ({
 
 const getItemStatus = ({ block, item }) => {
   if (item.canceledAt) return 'canceled';
-  if (item.completedAt) return 'completed';
   if (block.deferredItemIds.includes(item.id)) return 'deferred';
+  if (item.completedAt) return 'completed';
 
   return 'incomplete';
 };

@@ -1,6 +1,11 @@
 /** @jsx jsx */
 
-import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCheck,
+  faEllipsisH,
+  faLevelUpAlt,
+  faTimes,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -80,6 +85,12 @@ const ItemControls = ({
   );
 };
 
+const iconStatusMap = {
+  canceled: faTimes,
+  completed: faCheck,
+  deferred: faLevelUpAlt,
+};
+
 const Item = ({
   workspaceId, itemId, boardId, block,
 }) => {
@@ -98,10 +109,11 @@ const Item = ({
 
   return (
     <li sx={styles.root}>
-      <div sx={styles.itemWrapper}>
+      <div sx={styles.itemWrapper} className={`status-${item.status}`}>
         <Checkbox
           name="isComplete"
           itemKey={`${itemId}-isComplete`}
+          icon={iconStatusMap[item.status]}
           checked={item.status === 'completed'}
           handleChange={({ target: { checked } }) => {
             blocks.toggleItemComplete({
