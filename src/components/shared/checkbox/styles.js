@@ -4,6 +4,7 @@ const root = {
   cursor: 'pointer',
   display: 'block',
   height: `${size}px`,
+  marginRight: 1,
   position: 'relative',
   width: `${size}px`,
 };
