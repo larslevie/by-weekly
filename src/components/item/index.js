@@ -100,7 +100,8 @@ const Item = ({
     <li sx={styles.root}>
       <div sx={styles.itemWrapper}>
         <Checkbox
-          itemId={itemId}
+          name="isComplete"
+          itemKey={`${itemId}-isComplete`}
           checked={item.status === 'completed'}
           handleChange={({ target: { checked } }) => {
             blocks.toggleItemComplete({
