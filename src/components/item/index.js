@@ -97,7 +97,6 @@ const Item = ({
   const itemRef = db.doc(`workspaces/${workspaceId}/items/${itemId}`);
 
   const [item, loading, error] = useDocumentData(itemRef, {
-    snapshotListenOptions: { includeMetadataChanges: true },
     idField: 'id',
   });
 

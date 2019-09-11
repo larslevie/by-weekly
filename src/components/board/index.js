@@ -12,7 +12,6 @@ const Board = ({ workspaceId, boardId }) => {
     .orderBy('order', 'asc');
 
   const [blocks, loading, error] = useCollectionData(blocksRef, {
-    snapshotListenOptions: { includeMetadataChanges: true },
     idField: 'id',
   });
 
