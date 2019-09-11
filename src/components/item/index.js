@@ -8,7 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import {
   Menu, MenuDisclosure, MenuItem, useMenuState,
@@ -91,6 +91,28 @@ const iconStatusMap = {
   deferred: faLevelUpAlt,
 };
 
+const Input = ({ workspaceId, item }) => {
+  const [state, setState] = useState(item.label);
+
+  useEffect(
+    () => async () =>
+      items.update({ workspaceId, itemId: item.id, label: state }),
+    [item.id, state, workspaceId],
+  );
+
+  return (
+    <input
+      type="text"
+      name="label"
+      sx={styles.itemLabel}
+      value={state}
+      onChange={({ target: { value } }) => {
+        setState(value);
+      }}
+    />
+  );
+};
+
 const Item = ({
   workspaceId, itemId, boardId, block,
 }) => {
@@ -124,15 +146,7 @@ const Item = ({
             });
           }}
         />
-        <input
-          type="text"
-          name="label"
-          sx={styles.itemLabel}
-          value={item.label}
-          onChange={({ target: { value } }) =>
-            items.update({ workspaceId, itemId, label: value })
-          }
-        />
+        <Input workspaceId={workspaceId} itemId={itemId} item={item} />
       </div>
       <ItemControls
         workspaceId={workspaceId}
@@ -154,6 +168,11 @@ Item.propTypes = {
 ItemControls.propTypes = {
   blockId: PropTypes.string.isRequired,
   boardId: PropTypes.string.isRequired,
+  item: PropTypes.shape(schemata.ItemSchema).isRequired,
+  workspaceId: PropTypes.string.isRequired,
+};
+
+Input.propTypes = {
   item: PropTypes.shape(schemata.ItemSchema).isRequired,
   workspaceId: PropTypes.string.isRequired,
 };
