@@ -11,6 +11,16 @@ const config = {
 };
 
 firebase.initializeApp(config);
+firebase
+  .firestore()
+  .enablePersistence()
+  .catch((err) => {
+    if (err.code === 'failed-precondition') {
+      console.log('failed-precondition');
+    } else if (err.code === 'unimplemented') {
+      console.log('unimplemented');
+    }
+  });
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
 export const db = firebase.firestore();
