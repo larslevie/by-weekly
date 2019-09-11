@@ -15,7 +15,6 @@ const useWorkspace = (name) => {
     .where('name', '==', name);
 
   const [workspaces, loading, error] = useCollectionData(workspaceRef, {
-    snapshotListenOptions: { includeMetadataChanges: true },
     idField: 'id',
   });
 
@@ -29,7 +28,6 @@ const useCurrentBoard = (workspaceId) => {
   const boardRef = getCurrentRef({ workspaceId });
 
   const [boards, loading, error] = useCollectionData(boardRef, {
-    snapshotListenOptions: { includeMetadataChanges: true },
     idField: 'id',
   });
 
