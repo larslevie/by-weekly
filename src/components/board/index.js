@@ -5,6 +5,7 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { jsx } from 'theme-ui';
 import { db } from '../../constants/firebase';
 import Block from '../block';
+import styles from './styles';
 
 const Board = ({ workspaceId, boardId }) => {
   const blocksRef = db
@@ -19,14 +20,7 @@ const Board = ({ workspaceId, boardId }) => {
   if (loading) return 'Loading';
 
   return (
-    <div
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        flexWrap: 'wrap',
-        height: ['auto', '100%'],
-      }}
-    >
+    <div sx={styles.root}>
       {blocks.map(block => (
         <Block
           key={block.id}
