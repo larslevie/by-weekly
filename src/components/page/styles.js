@@ -9,6 +9,7 @@ export const root = {
 
 export const content = {
   flex: 1,
+  overflowX: 'scroll',
   width: '100%',
 };
 

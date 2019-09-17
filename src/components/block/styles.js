@@ -1,11 +1,9 @@
 const root = {
   boxSizing: 'border-box',
-  flex: ['1', '1 1 26%'],
-  maxHeight: ['auto', '33%'],
-  paddingLeft: 2,
-  width: ['auto', '50%'],
   display: 'flex',
+  flex: 1,
   flexDirection: 'column',
+  paddingLeft: 2,
 };
 
 export const title = {
