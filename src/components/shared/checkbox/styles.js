@@ -4,33 +4,41 @@ const root = {
   cursor: 'pointer',
   display: 'block',
   height: `${size}px`,
-  marginRight: 1,
+  marginRight: '12px',
   position: 'relative',
   width: `${size}px`,
 };
 
 const input = {
-  position: 'absolute',
   cursor: 'pointer',
+  opacity: 0,
+  position: 'absolute',
 };
 
 const customCheckbox = {
   backgroundColor: 'background',
-  border: '1px solid #000',
+  border: '1px solid #dedede',
   borderRadius: '5px',
   fontSize: '14px',
   height: `${size}px`,
   position: 'absolute',
   textAlign: 'center',
-  top: '3px',
+  top: '1px',
   width: `${size}px`,
+  '.status-completed &': {
+    backgroundColor: 'blue',
+    borderColor: 'blueAccent',
+    color: 'white',
+  },
   '.status-deferred &': {
     backgroundColor: 'teal',
     borderColor: 'tealAccent',
+    color: 'white',
   },
   '.status-canceled &': {
     backgroundColor: 'red',
     borderColor: 'redAccent',
+    color: 'white',
   },
 };
 

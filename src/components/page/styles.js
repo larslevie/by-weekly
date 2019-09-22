@@ -3,8 +3,8 @@ export const root = {
   display: 'flex',
   flexDirection: 'column',
   height: ['auto', '100vh'],
-  paddingLeft: 2,
-  paddingRight: 2,
+  paddingLeft: [2, 6],
+  paddingRight: [2, 6],
 };
 
 export const content = {

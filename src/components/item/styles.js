@@ -1,6 +1,6 @@
 export const root = {
   display: 'flex',
-  marginBottom: 1,
+  marginBottom: '12px',
 };
 
 export const itemWrapper = {
@@ -14,7 +14,7 @@ export const itemLabel = {
   borderBottomStyle: 'solid',
   borderBottomWidth: '2px',
   flex: 1,
-  fontSize: 1,
+  fontSize: '0.875rem',
   paddingBottom: '4px',
   '&:focus': {
     borderBottomColor: 'blue',

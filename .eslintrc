@@ -5,6 +5,7 @@
     "browser": true
   },
   "rules": {
+    "consistent-return": ["off"],
     "implicit-arrow-linebreak": ["off"],
     "import/no-named-as-default-member": ["off"],
     "max-len": [
