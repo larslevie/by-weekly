@@ -1,13 +1,15 @@
 const root = {
   boxSizing: 'border-box',
   display: 'flex',
-  flex: 1,
+  flex: [1, '0 1 calc(33% - 48px)'],
   flexDirection: 'column',
+  marginBottom: 4,
+  marginRight: 4,
   paddingLeft: 2,
 };
 
 export const title = {
-  fontSize: 3,
+  fontSize: 2,
 };
 
 export const content = {
