@@ -1,18 +1,16 @@
 /** @jsx jsx */
 
 import {
+  faArrowCircleRight,
   faCheck,
-  faEllipsisH,
   faLevelUpAlt,
   faTimes,
+  faTimesCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
-import {
-  Menu, MenuDisclosure, MenuItem, useMenuState,
-} from 'reakit';
 import { jsx } from 'theme-ui';
 import { db } from '../../constants/firebase';
 import schemata from '../../schemata';
@@ -24,64 +22,45 @@ import styles from './styles';
 const ItemControls = ({
   workspaceId, item, boardId, blockId,
 }) => {
-  const menu = useMenuState();
+  console.log({
+    workspaceId,
+    item,
+    boardId,
+    blockId,
+  });
 
   return (
-    <React.Fragment>
-      <MenuDisclosure {...menu} sx={styles.menuDisclosure}>
-        <FontAwesomeIcon icon={faEllipsisH} />
-      </MenuDisclosure>
-
-      <Menu {...menu} aria-label="Item controls" sx={styles.menu}>
-        <MenuItem
-          {...menu}
-          sx={styles.menuItem}
-          onClick={() => {
-            menu.hide();
-            blocks.toggleItemDeferred({
-              blockId,
-              boardId,
-              itemId: item.id,
-              workspaceId,
-              isDeferred: item.status === 'deferred',
-            });
-          }}
-        >
-          {item.status === 'deferred' ? 'Undefer' : 'Defer'}
-        </MenuItem>
-
-        <MenuItem
-          {...menu}
-          sx={styles.menuItem}
-          onClick={() => {
-            menu.hide();
-            blocks.cancelItem({
-              blockId,
-              boardId,
-              itemId: item.id,
-              workspaceId,
-            });
-          }}
-        >
-          {item.status === 'cancelled' ? 'Uncancel' : 'Cancel'}
-        </MenuItem>
-
-        <MenuItem
-          {...menu}
-          sx={styles.menuItem}
-          onClick={() => {
-            blocks.deleteItem({
-              blockId,
-              boardId,
-              itemId: item.id,
-              workspaceId,
-            });
-          }}
-        >
-          Delete
-        </MenuItem>
-      </Menu>
-    </React.Fragment>
+    <div sx={styles.itemControls}>
+      <button
+        sx={styles.itemControl}
+        type="button"
+        onClick={() => {
+          blocks.deleteItem({
+            blockId,
+            boardId,
+            itemId: item.id,
+            workspaceId,
+          });
+        }}
+      >
+        <FontAwesomeIcon icon={faTimesCircle} size="lg" />
+      </button>
+      <button
+        sx={styles.itemControl}
+        type="button"
+        onClick={() => {
+          blocks.toggleItemDeferred({
+            blockId,
+            boardId,
+            itemId: item.id,
+            workspaceId,
+            isDeferred: item.status === 'deferred',
+          });
+        }}
+      >
+        <FontAwesomeIcon icon={faArrowCircleRight} size="lg" />
+      </button>
+    </div>
   );
 };
 
@@ -129,7 +108,7 @@ const Item = ({
   item.isImportant = blocks.isItemImportant({ block, itemId: item.id });
 
   return (
-    <li sx={styles.root}>
+    <li sx={{ ...styles.root }}>
       <div sx={styles.itemWrapper} className={`status-${item.status}`}>
         <Checkbox
           name="isComplete"

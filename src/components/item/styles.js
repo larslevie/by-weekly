@@ -1,6 +1,19 @@
 export const root = {
+  borderColor: 'transparent',
+  borderRadius: '5px',
+  borderStyle: 'solid',
+  borderWidth: '1px',
   display: 'flex',
-  marginBottom: '12px',
+  marginBottom: '4px',
+  paddingBottom: '2px',
+  paddingLeft: '7px',
+  paddingRight: '7px',
+  paddingTop: '4px',
+  position: 'relative',
+  '&:hover': {
+    background: '#F8F6FE',
+    borderColor: 'primary',
+  },
 };
 
 export const itemWrapper = {
@@ -9,10 +22,8 @@ export const itemWrapper = {
 };
 
 export const itemLabel = {
+  background: 'transparent',
   border: 'none',
-  borderBottomColor: 'background',
-  borderBottomStyle: 'solid',
-  borderBottomWidth: '2px',
   flex: 1,
   fontSize: '0.875rem',
   paddingBottom: '4px',
@@ -73,8 +84,36 @@ export const menuItem = {
   },
 };
 
+export const itemControls = {
+  background: 'white',
+  borderColor: 'primary',
+  borderRadius: '100px',
+  borderStyle: 'solid',
+  borderWidth: '1px',
+  bottom: '-13px',
+  padding: '0 5px',
+  position: 'absolute',
+  right: '10px',
+  opacity: '0',
+  'li:hover &': {
+    opacity: '1',
+  },
+};
+
+export const itemControl = {
+  backgroundColor: 'transparent',
+  border: 'none',
+  cursor: 'pointer',
+  display: 'inline-block',
+  height: '100%',
+  margin: 0,
+  padding: '5px',
+};
+
 export default {
   checkbox,
+  itemControls,
+  itemControl,
   itemLabel,
   itemWrapper,
   menu,

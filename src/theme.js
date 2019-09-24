@@ -7,7 +7,7 @@ export default {
   fontSizes: ['0.5rem', '1rem', '1.25rem', '1.5rem', '2.215rem', '3rem'],
   space: [0, '8px', '16px', '24px', '32px', '48px', '64px'],
   colors: {
-    primary: '#33e',
+    primary: '#5628EE',
     text: '#000',
     background: '#fff',
     extraLightGray: 'lightgray',
