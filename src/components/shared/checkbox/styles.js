@@ -1,4 +1,4 @@
-const size = '16';
+const size = '14';
 
 const root = {
   cursor: 'pointer',
@@ -23,8 +23,11 @@ const customCheckbox = {
   height: `${size}px`,
   position: 'absolute',
   textAlign: 'center',
-  top: '1px',
+  top: '4px',
   width: `${size}px`,
+  'li:hover &': {
+    borderColor: 'primary',
+  },
   '.status-completed &': {
     backgroundColor: 'blue',
     borderColor: 'blueAccent',
@@ -44,7 +47,7 @@ const customCheckbox = {
 
 const icon = {
   opacity: 0,
-  verticalAlign: '1px',
+  verticalAlign: '2px',
   'input:checked ~ span > &, .status-deferred * &, .status-canceled * &': {
     opacity: 1,
   },
