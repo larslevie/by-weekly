@@ -1,5 +1,5 @@
-import getISOWeek from 'date-fns/get_iso_week';
-import getISOYear from 'date-fns/get_iso_year';
+import getISOWeek from 'date-fns/getISOWeek';
+import getISOYear from 'date-fns/getISOWeekYear';
 import uuid from 'uuid/v4';
 import { db } from '../../constants/firebase';
 import blocks from '../blocks';

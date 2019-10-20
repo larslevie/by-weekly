@@ -5,6 +5,7 @@
     "browser": true
   },
   "rules": {
+    "arrow-parens": "off",
     "consistent-return": ["off"],
     "implicit-arrow-linebreak": ["off"],
     "import/no-named-as-default-member": ["off"],
@@ -14,9 +15,10 @@
         "code": 80
       }
     ],
+    "react-hooks/exhaustive-deps": "warn",
+    "react-hooks/rules-of-hooks": "error",
     "react/jsx-filename-extension": ["off"],
     "react/jsx-one-expression-per-line": ["off"],
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react/jsx-props-no-spreading": "warn"
   }
 }

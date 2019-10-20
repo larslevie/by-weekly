@@ -35,12 +35,10 @@ const Block = ({ workspaceId, boardId, block }) => (
       <button
         type="button"
         sx={styles.addTaskButton}
-        onClick={() =>
-          blocks.createItem({ workspaceId, blockId: block.id, boardId })
-        }
+        onClick={() => blocks.createItem({ workspaceId, blockId: block.id, boardId })}
       >
         <FontAwesomeIcon icon={faPlus} />
-        {' Add Task'}
+        &nbsp; Add Task
       </button>
     </div>
   </section>

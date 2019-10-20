@@ -33,7 +33,7 @@ Checkbox.propTypes = {
 };
 
 Checkbox.defaultProps = {
-  handleChange: () => {},
+  handleChange: () => { },
 };
 
 export default Checkbox;
